@@ -492,7 +492,7 @@ module hotend_mount(dalekify = false, quickrelease = false) {
 					if (quickrelease) {
 						// Bowden sheath
 						translate([0, 0, h_groove_offset_jhead + layer_height])
-							cylinder(r = 175_bowden[2] / 2, h = 30);
+							cylinder(r = bowden[2] / 2, h = 30);
 
 							// chop top off tool
 							translate([0, 0, r2_retainer_body + h_retainer_body - h_groove_jhead]) {
@@ -520,11 +520,11 @@ module hotend_mount(dalekify = false, quickrelease = false) {
 					else
 						// Bowden sheath retainer
 						translate([0, 0, h_groove_offset_jhead + layer_height]) {
-							cylinder(r = 175_bowden[0] / 2, h = 175_bowden[1], $fn = 6);
+							cylinder(r = bowden[0] / 2, h = bowden[1], $fn = 6);
 
 							// bowden sheath
-							translate([0, 0, 175_bowden[1] + layer_height])
-								cylinder(r = 175_bowden[2] / 2, h = 30);
+							translate([0, 0, bowden[1] + layer_height])
+								cylinder(r = bowden[2] / 2, h = 30);
 
 							// retainer retainer
 							translate([0, (d_large_jhead + d_retainer_screw) / 2, 0])
