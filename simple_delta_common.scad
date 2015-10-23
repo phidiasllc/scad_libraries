@@ -316,7 +316,9 @@ module hotend_cage(
 	d_fan,
 	d_hotend_side,
 	r_flare,
-	dalekify) {
+	dalekify = false,
+	vent = false
+) {
 
 	y_offset_fan = d_hotend_side / 2 + t_heat_x_jhead / 2 * sin(a_fan_mount);
 	z_offset_fan = t_effector;
@@ -348,7 +350,6 @@ module hotend_cage(
 					r_flare = r_flare);
 			}
 
-
 			translate([0, y_offset_fan, (l_fan > h_thickness) ? z_offset_fan + (l_fan - h_thickness) / 2: z_offset_fan])
 				rotate([90 + a_fan_mount, 0, 0]){
 					for (i = [-1, 1])
@@ -373,6 +374,19 @@ module hotend_cage(
 					rotate([0, 0, i * 90 + 45])
 						translate([0, r_mount_holes, 0])
 							cylinder(r = 2.5 / 2, h = t_fan_mount + 6, center = true);
+
+		if (vent) {
+			for (i = [-4:4])
+				if (i != 0)
+					rotate([0, 0, i * 20])
+						translate([0, -15, 0])
+							rotate([90, 0, 0])
+								hull()
+									for (j = [-1, 1])
+										translate([0, 0, j * 15])
+											scale([0.2, 1])
+												cylinder(r = thickness / 4, h = 1, center = true);
+		}
 	}
 }
 
@@ -418,7 +432,10 @@ module hotend_cage_shape(
 }
 
 // hotend_mount is the shape placed on a tool or effector onto which a fan and hot end can be mounted
-module hotend_mount(dalekify = false, quickrelease = false) {
+module hotend_mount(dalekify = false,
+	quickrelease = false,
+	vent = false
+) {
 	union() {
 		difference() {
 			union() {
@@ -433,7 +450,9 @@ module hotend_mount(dalekify = false, quickrelease = false) {
 						d_fan = 38,
 						d_hotend_side = d_hotend_side,
 						r_flare = r_flare,
-						dalekify = dalekify);
+						dalekify = dalekify,
+						vent = vent
+					);
 
 				// hot end retainer body
 				translate([0, 0, z_offset_retainer]) {
