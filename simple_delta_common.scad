@@ -464,8 +464,8 @@ module hotend_mount(dalekify = false,
 							intersection() {
 								sphere(r = r2_retainer_body);
 
-								translate([-r2_retainer_body, -r2_retainer_body, 0])
-									cube([2 * r2_retainer_body, 2 * r2_retainer_body,2 * r2_retainer_body]);
+								translate([-r2_retainer_body, -r2_retainer_body, -1])
+									cube([2 * r2_retainer_body, 2 * r2_retainer_body,2 * r2_retainer_body + 1]);
 							}
 
 						if (dalekify)
@@ -650,7 +650,7 @@ module magnet_mount(r_pad, h_pad) {
 				cylinder(r = od_magnet / 2 + r_pad, h = h_magnet + h_pad, center = true);
 
 //				translate([0, 0, 1]) // was causing the pocket to be too large for the magnets
-					cylinder(r1 = od_magnet / 2 + 0.25, r2 = od_magnet / 2, h = h_magnet, center = true);
+					cylinder(r1 = od_magnet / 2 + 0.25, r2 = od_magnet / 2, h = h_magnet + 1, center = true);
 		}
 /*
 		// magnet and ball bearing
